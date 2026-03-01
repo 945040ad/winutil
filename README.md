@@ -67,16 +67,3 @@ You'll see a new file named `winutil.ps1`, which's created by `Compile.ps1` scri
 
 > [!TIP]
 > For more info on using WinUtil and how to develop for it, please consider reading [the Contribution Guidelines](https://winutil.945040ad.com/contributing/), if you don't know where to start, or have questions, you can ask over on our [Discord Community Server](https://discord.gg/RUbZUZyByQ) and active project members will answer when they can.
-
-## 💖 Support
-- To morally and mentally support the project, make sure to leave a ⭐️!
-- EXE Wrapper for $10 @ https://www.cttstore.com/windows-toolbox
-
-
-
-Thanks a lot for spending your time helping Winutil grow. Thanks a lot! Keep rocking 🍻.
-
-
-## 📊 GitHub Stats
-
-![Alt](https://repobeats.axiom.co/api/embed/aad37eec9114c507f109d34ff8d38a59adc9503f.svg "Repobeats analytics image")
