@@ -4,10 +4,12 @@
 .vscode/
 .idea/
 
-### Visual Studio ###
+### Visual Studio & .NET ###
 
 # Visual Studio user-specific files
 .vs/
+[Bb]in/
+[Oo]bj/
 
 winutil.pdb
 

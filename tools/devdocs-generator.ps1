@@ -177,7 +177,7 @@ $publicFunctionsDir  = "$repoRoot/functions/public"
 $privateFunctionsDir = "$repoRoot/functions/private"
 
 $itemnametocut = 'WPF(WinUtil|Toggle|Features?|Tweaks?|Panel|Fix(es)?)?'
-$baseUrl       = "https://winutil.945040ad.com"
+$baseUrl       = "https://swiftly.dev"
 
 # Categories with generated docs
 $documentedCategories = @(

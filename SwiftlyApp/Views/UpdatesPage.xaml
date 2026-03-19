@@ -1,0 +1,64 @@
+<Page x:Class="SwiftlyApp.Views.UpdatesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      Title="Updates">
+
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Windows Update Configuration" FontSize="24" FontWeight="Bold" Margin="0,0,0,16" />
+
+        <WrapPanel Grid.Row="1" Orientation="Horizontal">
+            
+            <!-- Default Settings Card -->
+            <ui:Card Width="300" Margin="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Default Settings" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                    <TextBlock Grid.Row="1" Text="Reverts Windows Update to its out-of-box default behavior. Recommended if you're experiencing issues with the Microsoft Store or Xbox apps." 
+                               TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,16"/>
+                    <ui:Button Grid.Row="2" Content="Apply Default" Appearance="Primary" Command="{Binding ApplyDefaultCommand}" HorizontalAlignment="Stretch"/>
+                </Grid>
+            </ui:Card>
+
+            <!-- Security Updates Only Card -->
+            <ui:Card Width="300" Margin="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Security Updates Only" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                    <TextBlock Grid.Row="1" Text="Delays feature updates for 2 years but continues to install critical security definitions. Highly recommended for a stable system." 
+                               TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,16"/>
+                    <ui:Button Grid.Row="2" Content="Apply Security Only" Appearance="Primary" Command="{Binding ApplySecurityCommand}" HorizontalAlignment="Stretch"/>
+                </Grid>
+            </ui:Card>
+
+            <!-- Disable All Updates Card -->
+            <ui:Card Width="300" Margin="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Disable All Updates" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,8" Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+                    <TextBlock Grid.Row="1" Text="Completely disables Windows Update via Group Policy. NOT RECOMMENDED. May leave your system vulnerable to exploits." 
+                               TextWrapping="Wrap" Foreground="{DynamicResource TextFillColorSecondaryBrush}" Margin="0,0,0,16"/>
+                    <ui:Button Grid.Row="2" Content="Disable Updates" Appearance="Danger" Command="{Binding DisableUpdatesCommand}" HorizontalAlignment="Stretch"/>
+                </Grid>
+            </ui:Card>
+
+        </WrapPanel>
+    </Grid>
+</Page>

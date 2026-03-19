@@ -64,26 +64,10 @@
     "category": "Essential Tweaks",
     "panel": "1",
     "InvokeScript": [
-      "
-      # Sometimes if you dont stop the Widgets process the removal may fail
-
-      Stop-Process -Name Widgets
-      Get-AppxPackage Microsoft.WidgetsPlatformRuntime -AllUsers | Remove-AppxPackage -AllUsers
-      Get-AppxPackage MicrosoftWindows.Client.WebExperience -AllUsers | Remove-AppxPackage -AllUsers
-
-      Invoke-WinUtilExplorerUpdate -action \"restart\"
-      Write-Host \"Removed widgets\"
-      "
+      "\n      # Sometimes if you dont stop the Widgets process the removal may fail\n\n      Stop-Process -Name Widgets\n      Get-AppxPackage Microsoft.WidgetsPlatformRuntime -AllUsers | Remove-AppxPackage -AllUsers\n      Get-AppxPackage MicrosoftWindows.Client.WebExperience -AllUsers | Remove-AppxPackage -AllUsers\n\n      Invoke-WinUtilExplorerUpdate -action \"restart\"\n      Write-Host \"Removed widgets\"\n      "
     ],
     "UndoScript": [
-      "
-      Write-Host \"Restoring widgets AppxPackages\"
-
-      Add-AppxPackage -Register \"C:\\Program Files\\WindowsApps\\Microsoft.WidgetsPlatformRuntime*\\AppxManifest.xml\" -DisableDevelopmentMode
-      Add-AppxPackage -Register \"C:\\Program Files\\WindowsApps\\MicrosoftWindows.Client.WebExperience*\\AppxManifest.xml\" -DisableDevelopmentMode
-
-      Invoke-WinUtilExplorerUpdate -action \"restart\"
-      "
+      "\n      Write-Host \"Restoring widgets AppxPackages\"\n\n      Add-AppxPackage -Register \"C:\\Program Files\\WindowsApps\\Microsoft.WidgetsPlatformRuntime*\\AppxManifest.xml\" -DisableDevelopmentMode\n      Add-AppxPackage -Register \"C:\\Program Files\\WindowsApps\\MicrosoftWindows.Client.WebExperience*\\AppxManifest.xml\" -DisableDevelopmentMode\n\n      Invoke-WinUtilExplorerUpdate -action \"restart\"\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/essential-tweaks/widget"
   },
@@ -93,32 +77,10 @@
     "category": "z__Advanced Tweaks - CAUTION",
     "panel": "1",
     "InvokeScript": [
-      "
-      Invoke-WebRequest https://github.com/thebookisclosed/ViVe/releases/download/v0.3.4/ViVeTool-v0.3.4-IntelAmd.zip -OutFile ViVeTool.zip
-
-      Expand-Archive ViVeTool.zip
-      Remove-Item ViVeTool.zip
-
-      Start-Process 'ViVeTool\\ViVeTool.exe' -ArgumentList '/disable /id:47205210' -Wait -NoNewWindow
-
-      Remove-Item ViVeTool -Recurse
-
-      Write-Host 'Old start menu reverted please restart your computer to take effect'
-      "
+      "\n      Invoke-WebRequest https://github.com/thebookisclosed/ViVe/releases/download/v0.3.4/ViVeTool-v0.3.4-IntelAmd.zip -OutFile ViVeTool.zip\n\n      Expand-Archive ViVeTool.zip\n      Remove-Item ViVeTool.zip\n\n      Start-Process 'ViVeTool\\ViVeTool.exe' -ArgumentList '/disable /id:47205210' -Wait -NoNewWindow\n\n      Remove-Item ViVeTool -Recurse\n\n      Write-Host 'Old start menu reverted please restart your computer to take effect'\n      "
     ],
     "UndoScript": [
-      "
-      Invoke-WebRequest https://github.com/thebookisclosed/ViVe/releases/download/v0.3.4/ViVeTool-v0.3.4-IntelAmd.zip -OutFile ViVeTool.zip
-
-      Expand-Archive ViVeTool.zip
-      Remove-Item ViVeTool.zip
-
-      Start-Process 'ViVeTool\\ViVeTool.exe' -ArgumentList '/enable /id:47205210' -Wait -NoNewWindow
-
-      Remove-Item ViVeTool -Recurse
-
-      Write-Host 'New start menu reverted please restart your computer to take effect'
-      "
+      "\n      Invoke-WebRequest https://github.com/thebookisclosed/ViVe/releases/download/v0.3.4/ViVeTool-v0.3.4-IntelAmd.zip -OutFile ViVeTool.zip\n\n      Expand-Archive ViVeTool.zip\n      Remove-Item ViVeTool.zip\n\n      Start-Process 'ViVeTool\\ViVeTool.exe' -ArgumentList '/enable /id:47205210' -Wait -NoNewWindow\n\n      Remove-Item ViVeTool -Recurse\n\n      Write-Host 'New start menu reverted please restart your computer to take effect'\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/z--advanced-tweaks---caution/revertstartmenu"
   },
@@ -1396,33 +1358,10 @@
       }
     ],
     "InvokeScript": [
-      "
-      # Disable Defender Auto Sample Submission
-      Set-MpPreference -SubmitSamplesConsent 2
-
-      # Disable (Connected User Experiences and Telemetry) Service
-      Set-Service -Name diagtrack -StartupType Disabled
-
-      # Disable (Windows Error Reporting Manager) Service
-      Set-Service -Name wermgr -StartupType Disabled
-
-      $Memory = (Get-CimInstance Win32_PhysicalMemory | Measure-Object Capacity -Sum).Sum / 1KB
-      Set-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\" -Name SvcHostSplitThresholdInKB -Value $Memory
-
-      Remove-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Siuf\\Rules\" -Name PeriodInNanoSeconds
-      "
+      "\n      # Disable Defender Auto Sample Submission\n      Set-MpPreference -SubmitSamplesConsent 2\n\n      # Disable (Connected User Experiences and Telemetry) Service\n      Set-Service -Name diagtrack -StartupType Disabled\n\n      # Disable (Windows Error Reporting Manager) Service\n      Set-Service -Name wermgr -StartupType Disabled\n\n      $Memory = (Get-CimInstance Win32_PhysicalMemory | Measure-Object Capacity -Sum).Sum / 1KB\n      Set-ItemProperty -Path \"HKLM:\\SYSTEM\\CurrentControlSet\\Control\" -Name SvcHostSplitThresholdInKB -Value $Memory\n\n      Remove-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Siuf\\Rules\" -Name PeriodInNanoSeconds\n      "
     ],
     "UndoScript": [
-      "
-      # Enable Defender Auto Sample Submission
-      Set-MpPreference -SubmitSamplesConsent 1
-
-      # Enable (Connected User Experiences and Telemetry) Service
-      Set-Service -Name diagtrack -StartupType Automatic
-
-      # Enable (Windows Error Reporting Manager) Service
-      Set-Service -Name wermgr -StartupType Automatic
-      "
+      "\n      # Enable Defender Auto Sample Submission\n      Set-MpPreference -SubmitSamplesConsent 1\n\n      # Enable (Connected User Experiences and Telemetry) Service\n      Set-Service -Name diagtrack -StartupType Automatic\n\n      # Enable (Windows Error Reporting Manager) Service\n      Set-Service -Name wermgr -StartupType Automatic\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/essential-tweaks/telemetry"
   },
@@ -1435,10 +1374,7 @@
       "Invoke-WinUtilRemoveEdge"
     ],
     "UndoScript": [
-      "
-      Write-Host 'Installing Microsoft Edge...'
-      winget install Microsoft.Edge --source winget
-      "
+      "\n      Write-Host 'Installing Microsoft Edge...'\n      winget install Microsoft.Edge --source winget\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/z--advanced-tweaks---caution/removeedge"
   },
@@ -1464,34 +1400,10 @@
     "category": "z__Advanced Tweaks - CAUTION",
     "panel": "1",
     "InvokeScript": [
-      "
-      # Deny permission to remove OneDrive folder
-      icacls $Env:OneDrive /deny \"Administrators:(D,DC)\"
-
-      Write-Host \"Uninstalling OneDrive...\"
-      Start-Process 'C:\\Windows\\System32\\OneDriveSetup.exe' -ArgumentList '/uninstall' -Wait
-
-      # Some of OneDrive files use explorer, and OneDrive uses FileCoAuth
-      Write-Host \"Removing leftover OneDrive Files...\"
-      Stop-Process -Name FileCoAuth,Explorer
-      Remove-Item \"$Env:LocalAppData\\Microsoft\\OneDrive\" -Recurse -Force
-      Remove-Item \"C:\\ProgramData\\Microsoft OneDrive\" -Recurse -Force
-
-      # Grant back permission to accses OneDrive folder
-      icacls $Env:OneDrive /grant \"Administrators:(D,DC)\"
-
-      # Disable OneSyncSvc
-      Set-Service -Name OneSyncSvc -StartupType Disabled
-      "
+      "\n      # Deny permission to remove OneDrive folder\n      icacls $Env:OneDrive /deny \"Administrators:(D,DC)\"\n\n      Write-Host \"Uninstalling OneDrive...\"\n      Start-Process 'C:\\Windows\\System32\\OneDriveSetup.exe' -ArgumentList '/uninstall' -Wait\n\n      # Some of OneDrive files use explorer, and OneDrive uses FileCoAuth\n      Write-Host \"Removing leftover OneDrive Files...\"\n      Stop-Process -Name FileCoAuth,Explorer\n      Remove-Item \"$Env:LocalAppData\\Microsoft\\OneDrive\" -Recurse -Force\n      Remove-Item \"C:\\ProgramData\\Microsoft OneDrive\" -Recurse -Force\n\n      # Grant back permission to accses OneDrive folder\n      icacls $Env:OneDrive /grant \"Administrators:(D,DC)\"\n\n      # Disable OneSyncSvc\n      Set-Service -Name OneSyncSvc -StartupType Disabled\n      "
     ],
     "UndoScript": [
-      "
-      Write-Host \"Installing OneDrive\"
-      winget install Microsoft.Onedrive --source winget
-
-      # Enabled OneSyncSvc
-      Set-Service -Name OneSyncSvc -StartupType Enabled
-      "
+      "\n      Write-Host \"Installing OneDrive\"\n      winget install Microsoft.Onedrive --source winget\n\n      # Enabled OneSyncSvc\n      Set-Service -Name OneSyncSvc -StartupType Enabled\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/z--advanced-tweaks---caution/removeonedrive"
   },
@@ -1501,16 +1413,10 @@
     "category": "z__Advanced Tweaks - CAUTION",
     "panel": "1",
     "InvokeScript": [
-      "
-      Remove-Item \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Desktop\\NameSpace\\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}\"
-      Set-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" -Name LaunchTo -Value 1
-      "
+      "\n      Remove-Item \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Desktop\\NameSpace\\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}\"\n      Set-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" -Name LaunchTo -Value 1\n      "
     ],
     "UndoScript": [
-      "
-      New-Item \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Desktop\\NameSpace\\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}\"
-      Set-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" -Name LaunchTo -Value 0
-      "
+      "\n      New-Item \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Desktop\\NameSpace\\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}\"\n      Set-ItemProperty -Path \"HKCU:\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced\" -Name LaunchTo -Value 0\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/z--advanced-tweaks---caution/removehome"
   },
@@ -1520,14 +1426,10 @@
     "category": "z__Advanced Tweaks - CAUTION",
     "panel": "1",
     "InvokeScript": [
-      "
-      Remove-Item \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Desktop\\NameSpace\\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}\"
-      "
+      "\n      Remove-Item \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Desktop\\NameSpace\\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}\"\n      "
     ],
     "UndoScript": [
-      "
-      New-Item \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Desktop\\NameSpace\\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}\"
-      "
+      "\n      New-Item \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Desktop\\NameSpace\\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}\"\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/z--advanced-tweaks---caution/removegallery"
   },
@@ -1719,17 +1621,7 @@
       "*Microsoft.Advertising.Xaml*"
     ],
     "InvokeScript": [
-      "
-      $TeamsPath = \"$Env:LocalAppData\\Microsoft\\Teams\\Update.exe\"
-
-      if (Test-Path $TeamsPath) {
-        Write-Host \"Uninstalling Teams\"
-        Start-Process $TeamsPath -ArgumentList -uninstall -wait
-
-        Write-Host \"Deleting Teams directory\"
-        Remove-Item $TeamsPath -Recurse -Force
-      }
-      "
+      "\n      $TeamsPath = \"$Env:LocalAppData\\Microsoft\\Teams\\Update.exe\"\n\n      if (Test-Path $TeamsPath) {\n        Write-Host \"Uninstalling Teams\"\n        Start-Process $TeamsPath -ArgumentList -uninstall -wait\n\n        Write-Host \"Deleting Teams directory\"\n        Remove-Item $TeamsPath -Recurse -Force\n      }\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/z--advanced-tweaks---caution/debloat"
   },
@@ -1749,14 +1641,7 @@
       }
     ],
     "InvokeScript": [
-      "
-      if (-not (Get-ComputerRestorePoint)) {
-          Enable-ComputerRestore -Drive $Env:SystemDrive
-      }
-
-      Checkpoint-Computer -Description \"System Restore Point created by Swiftly\" -RestorePointType MODIFY_SETTINGS
-      Write-Host \"System Restore Point Created Successfully\" -ForegroundColor Green
-      "
+      "\n      if (-not (Get-ComputerRestorePoint)) {\n          Enable-ComputerRestore -Drive $Env:SystemDrive\n      }\n\n      Checkpoint-Computer -Description \"System Restore Point created by Swiftly\" -RestorePointType MODIFY_SETTINGS\n      Write-Host \"System Restore Point Created Successfully\" -ForegroundColor Green\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/essential-tweaks/restorepoint"
   },
@@ -1869,23 +1754,10 @@
       }
     ],
     "InvokeScript": [
-      "
-      Write-Host \"Remove Copilot\"
-      Get-AppxPackage -AllUsers *Copilot* | Remove-AppxPackage -AllUsers
-      Get-AppxPackage -AllUsers Microsoft.MicrosoftOfficeHub | Remove-AppxPackage -AllUsers
-
-      $Appx = (Get-AppxPackage MicrosoftWindows.Client.CoreAI).PackageFullName
-
-      $Sid = (Get-LocalUser $Env:UserName).Sid.Value
-      New-Item \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Appx\\AppxAllUserStore\\EndOfLife\\$Sid\\$Appx\" -Force
-      Remove-AppxPackage $Appx
-      "
+      "\n      Write-Host \"Remove Copilot\"\n      Get-AppxPackage -AllUsers *Copilot* | Remove-AppxPackage -AllUsers\n      Get-AppxPackage -AllUsers Microsoft.MicrosoftOfficeHub | Remove-AppxPackage -AllUsers\n\n      $Appx = (Get-AppxPackage MicrosoftWindows.Client.CoreAI).PackageFullName\n\n      $Sid = (Get-LocalUser $Env:UserName).Sid.Value\n      New-Item \"HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Appx\\AppxAllUserStore\\EndOfLife\\$Sid\\$Appx\" -Force\n      Remove-AppxPackage $Appx\n      "
     ],
     "UndoScript": [
-      "
-      Write-Host \"Install Copilot\"
-      winget install --name Copilot --source msstore --accept-package-agreements --accept-source-agreements --silent
-      "
+      "\n      Write-Host \"Install Copilot\"\n      winget install --name Copilot --source msstore --accept-package-agreements --accept-source-agreements --silent\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/z--advanced-tweaks---caution/removecopilot"
   },
@@ -1927,23 +1799,10 @@
       }
     ],
     "InvokeScript": [
-      "
-      $RazerPath = \"C:\\Windows\\Installer\\Razer\"
-
-      if (Test-Path $RazerPath) {
-        Remove-Item $RazerPath\\* -Recurse -Force
-      }
-      else {
-        New-Item -Path $RazerPath -ItemType Directory
-      }
-
-      icacls $RazerPath /deny \"Everyone:(W)\"
-      "
+      "\n      $RazerPath = \"C:\\Windows\\Installer\\Razer\"\n\n      if (Test-Path $RazerPath) {\n        Remove-Item $RazerPath\\* -Recurse -Force\n      }\n      else {\n        New-Item -Path $RazerPath -ItemType Directory\n      }\n\n      icacls $RazerPath /deny \"Everyone:(W)\"\n      "
     ],
     "UndoScript": [
-      "
-      icacls \"C:\\Windows\\Installer\\Razer\" /remove:d Everyone
-      "
+      "\n      icacls \"C:\\Windows\\Installer\\Razer\" /remove:d Everyone\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/z--advanced-tweaks---caution/razerblock"
   },
@@ -1976,27 +1835,10 @@
     "category": "z__Advanced Tweaks - CAUTION",
     "panel": "1",
     "InvokeScript": [
-      "
-      $hostsUrl = \"https://github.com/Ruddernation-Designs/Adobe-URL-Block-List/raw/refs/heads/master/hosts\"
-      $hosts = \"$Env:SystemRoot\\System32\\drivers\\etc\\hosts\"
-
-      Move-Item $hosts \"$hosts.bak\"
-      Invoke-WebRequest $hostsUrl -OutFile $hosts
-      ipconfig /flushdns
-
-      Write-Host \"Added Adobe url block list from host file\"
-      "
+      "\n      $hostsUrl = \"https://github.com/Ruddernation-Designs/Adobe-URL-Block-List/raw/refs/heads/master/hosts\"\n      $hosts = \"$Env:SystemRoot\\System32\\drivers\\etc\\hosts\"\n\n      Move-Item $hosts \"$hosts.bak\"\n      Invoke-WebRequest $hostsUrl -OutFile $hosts\n      ipconfig /flushdns\n\n      Write-Host \"Added Adobe url block list from host file\"\n      "
     ],
     "UndoScript": [
-      "
-      $hosts = \"$Env:SystemRoot\\System32\\drivers\\etc\\hosts\"
-
-      Remove-Item $hosts
-      Move-Item \"$hosts.bak\" $hosts
-      ipconfig /flushdns
-
-      Write-Host \"Removed Adobe url block list from host file\"
-      "
+      "\n      $hosts = \"$Env:SystemRoot\\System32\\drivers\\etc\\hosts\"\n\n      Remove-Item $hosts\n      Move-Item \"$hosts.bak\" $hosts\n      ipconfig /flushdns\n\n      Write-Host \"Removed Adobe url block list from host file\"\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/z--advanced-tweaks---caution/blockadobenet"
   },
@@ -2006,19 +1848,10 @@
     "category": "z__Advanced Tweaks - CAUTION",
     "panel": "1",
     "InvokeScript": [
-      "
-      New-Item -Path \"HKCU:\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\" -Name \"InprocServer32\" -force -value \"\"
-      Write-Host Restarting explorer.exe ...
-      Stop-Process -Name \"explorer\" -Force
-      "
+      "\n      New-Item -Path \"HKCU:\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\" -Name \"InprocServer32\" -force -value \"\"\n      Write-Host Restarting explorer.exe ...\n      Stop-Process -Name \"explorer\" -Force\n      "
     ],
     "UndoScript": [
-      "
-      Remove-Item -Path \"HKCU:\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\" -Recurse -Confirm:$false -Force
-      # Restarting Explorer in the Undo Script might not be necessary, as the Registry change without restarting Explorer does work, but just to make sure.
-      Write-Host Restarting explorer.exe ...
-      Stop-Process -Name \"explorer\" -Force
-      "
+      "\n      Remove-Item -Path \"HKCU:\\Software\\Classes\\CLSID\\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\" -Recurse -Confirm:$false -Force\n      # Restarting Explorer in the Undo Script might not be necessary, as the Registry change without restarting Explorer does work, but just to make sure.\n      Write-Host Restarting explorer.exe ...\n      Stop-Process -Name \"explorer\" -Force\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/z--advanced-tweaks---caution/rightclickmenu"
   },
@@ -2028,10 +1861,7 @@
     "category": "Essential Tweaks",
     "panel": "1",
     "InvokeScript": [
-      "
-      cleanmgr.exe /d C: /VERYLOWDISK
-      Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase
-      "
+      "\n      cleanmgr.exe /d C: /VERYLOWDISK\n      Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/essential-tweaks/diskcleanup"
   },
@@ -2041,10 +1871,7 @@
     "category": "Essential Tweaks",
     "panel": "1",
     "InvokeScript": [
-      "
-      Remove-Item -Path \"$Env:Temp\\*\" -Recurse -Force
-      Remove-Item -Path \"$Env:SystemRoot\\Temp\\*\" -Recurse -Force
-      "
+      "\n      Remove-Item -Path \"$Env:Temp\\*\" -Recurse -Force\n      Remove-Item -Path \"$Env:SystemRoot\\Temp\\*\" -Recurse -Force\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/essential-tweaks/deletetempfiles"
   },
@@ -2165,20 +1992,10 @@
       }
     ],
     "InvokeScript": [
-      "
-      Invoke-WinUtilExplorerUpdate
-      if ($sync.ThemeButton.Content -eq [char]0xF08C) {
-        Invoke-WinutilThemeChange -theme \"Auto\"
-      }
-      "
+      "\n      Invoke-WinUtilExplorerUpdate\n      if ($sync.ThemeButton.Content -eq [char]0xF08C) {\n        Invoke-WinutilThemeChange -theme \"Auto\"\n      }\n      "
     ],
     "UndoScript": [
-      "
-      Invoke-WinUtilExplorerUpdate
-      if ($sync.ThemeButton.Content -eq [char]0xF08C) {
-        Invoke-WinutilThemeChange -theme \"Auto\"
-      }
-      "
+      "\n      Invoke-WinUtilExplorerUpdate\n      if ($sync.ThemeButton.Content -eq [char]0xF08C) {\n        Invoke-WinutilThemeChange -theme \"Auto\"\n      }\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/customize-preferences/darkmode"
   },
@@ -2277,14 +2094,10 @@
       }
     ],
     "InvokeScript": [
-      "
-      Invoke-WinUtilExplorerUpdate -action \"restart\"
-      "
+      "\n      Invoke-WinUtilExplorerUpdate -action \"restart\"\n      "
     ],
     "UndoScript": [
-      "
-      Invoke-WinUtilExplorerUpdate -action \"restart\"
-      "
+      "\n      Invoke-WinUtilExplorerUpdate -action \"restart\"\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/customize-preferences/startmenurecommendations"
   },
@@ -2435,14 +2248,10 @@
       }
     ],
     "InvokeScript": [
-      "
-      Invoke-WinUtilExplorerUpdate -action \"restart\"
-      "
+      "\n      Invoke-WinUtilExplorerUpdate -action \"restart\"\n      "
     ],
     "UndoScript": [
-      "
-      Invoke-WinUtilExplorerUpdate -action \"restart\"
-      "
+      "\n      Invoke-WinUtilExplorerUpdate -action \"restart\"\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/customize-preferences/hiddenfiles"
   },
@@ -2463,14 +2272,10 @@
       }
     ],
     "InvokeScript": [
-      "
-      Invoke-WinUtilExplorerUpdate -action \"restart\"
-      "
+      "\n      Invoke-WinUtilExplorerUpdate -action \"restart\"\n      "
     ],
     "UndoScript": [
-      "
-      Invoke-WinUtilExplorerUpdate -action \"restart\"
-      "
+      "\n      Invoke-WinUtilExplorerUpdate -action \"restart\"\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/customize-preferences/showext"
   },
@@ -2527,14 +2332,10 @@
       }
     ],
     "InvokeScript": [
-      "
-      Invoke-WinUtilExplorerUpdate -action \"restart\"
-      "
+      "\n      Invoke-WinUtilExplorerUpdate -action \"restart\"\n      "
     ],
     "UndoScript": [
-      "
-      Invoke-WinUtilExplorerUpdate -action \"restart\"
-      "
+      "\n      Invoke-WinUtilExplorerUpdate -action \"restart\"\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/customize-preferences/taskbaralignment"
   },
@@ -2619,52 +2420,10 @@
     "category": "Essential Tweaks",
     "panel": "1",
     "InvokeScript": [
-      "
-      # Previously detected folders
-      $bags = \"HKCU:\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\Bags\"
-
-      # Folder types lookup table
-      $bagMRU = \"HKCU:\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\BagMRU\"
-
-      # Flush Explorer view database
-      Remove-Item -Path $bags -Recurse -Force
-      Write-Host \"Removed $bags\"
-
-      Remove-Item -Path $bagMRU -Recurse -Force
-      Write-Host \"Removed $bagMRU\"
-
-      # Every folder
-      $allFolders = \"HKCU:\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\Bags\\AllFolders\\Shell\"
-
-      if (!(Test-Path $allFolders)) {
-        New-Item -Path $allFolders -Force
-        Write-Host \"Created $allFolders\"
-      }
-
-      # Generic view
-      New-ItemProperty -Path $allFolders -Name \"FolderType\" -Value \"NotSpecified\" -PropertyType String -Force
-      Write-Host \"Set FolderType to NotSpecified\"
-
-      Write-Host Please sign out and back in, or restart your computer to apply the changes!
-      "
+      "\n      # Previously detected folders\n      $bags = \"HKCU:\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\Bags\"\n\n      # Folder types lookup table\n      $bagMRU = \"HKCU:\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\BagMRU\"\n\n      # Flush Explorer view database\n      Remove-Item -Path $bags -Recurse -Force\n      Write-Host \"Removed $bags\"\n\n      Remove-Item -Path $bagMRU -Recurse -Force\n      Write-Host \"Removed $bagMRU\"\n\n      # Every folder\n      $allFolders = \"HKCU:\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\Bags\\AllFolders\\Shell\"\n\n      if (!(Test-Path $allFolders)) {\n        New-Item -Path $allFolders -Force\n        Write-Host \"Created $allFolders\"\n      }\n\n      # Generic view\n      New-ItemProperty -Path $allFolders -Name \"FolderType\" -Value \"NotSpecified\" -PropertyType String -Force\n      Write-Host \"Set FolderType to NotSpecified\"\n\n      Write-Host Please sign out and back in, or restart your computer to apply the changes!\n      "
     ],
     "UndoScript": [
-      "
-      # Previously detected folders
-      $bags = \"HKCU:\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\Bags\"
-
-      # Folder types lookup table
-      $bagMRU = \"HKCU:\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\BagMRU\"
-
-      # Flush Explorer view database
-      Remove-Item -Path $bags -Recurse -Force
-      Write-Host \"Removed $bags\"
-
-      Remove-Item -Path $bagMRU -Recurse -Force
-      Write-Host \"Removed $bagMRU\"
-
-      Write-Host Please sign out and back in, or restart your computer to apply the changes!
-      "
+      "\n      # Previously detected folders\n      $bags = \"HKCU:\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\Bags\"\n\n      # Folder types lookup table\n      $bagMRU = \"HKCU:\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\Shell\\BagMRU\"\n\n      # Flush Explorer view database\n      Remove-Item -Path $bags -Recurse -Force\n      Write-Host \"Removed $bags\"\n\n      Remove-Item -Path $bagMRU -Recurse -Force\n      Write-Host \"Removed $bagMRU\"\n\n      Write-Host Please sign out and back in, or restart your computer to apply the changes!\n      "
     ],
     "link": "https://swiftly.dev/dev/tweaks/essential-tweaks/disableexplorerautodiscovery"
   },

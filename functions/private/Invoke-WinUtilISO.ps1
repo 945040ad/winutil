@@ -321,8 +321,8 @@ function Invoke-WinUtilISOModify {
             Mount-WindowsImage -ImagePath $localWim -Index $selectedWimIndex -Path $mountDir -ErrorAction Stop | Out-Null
             SetProgress "Modifying install.wim..." 45
 
-            # ── Apply all WinUtil modifications via Invoke-WinUtilISOScript ──
-            Log "Applying WinUtil modifications to install.wim..."
+            # ── Apply all Swiftly modifications via Invoke-WinUtilISOScript ──
+            Log "Applying Swiftly modifications to install.wim..."
             Invoke-WinUtilISOScript -ScratchDir $mountDir -ISOContentsDir $isoContents -AutoUnattendXml $autounattendContent -Log { param($m) Log $m }
 
             # ── 4b. DISM component store cleanup ──

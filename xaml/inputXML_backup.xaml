@@ -14,7 +14,7 @@
         MinHeight="600"
         Title="Swiftly">
     <WindowChrome.WindowChrome>
-        <WindowChrome CaptionHeight="0" CornerRadius="12"/>
+        <WindowChrome CaptionHeight="0" CornerRadius="10"/>
     </WindowChrome.WindowChrome>
     <Window.Resources>
     <Style TargetType="ToolTip">
@@ -188,28 +188,21 @@
     </Style>
     <Style TargetType="Button" x:Key="HoverButtonStyle">
         <Setter Property="Foreground" Value="{DynamicResource MainForegroundColor}" />
-        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="FontWeight" Value="Normal" />
         <Setter Property="FontSize" Value="{DynamicResource ButtonFontSize}" />
         <Setter Property="TextElement.FontFamily" Value="{DynamicResource ButtonFontFamily}"/>
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="{DynamicResource MainBackgroundColor}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="BtnBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,6,12,6"/>
+                    <Border Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource ButtonBackgroundMouseoverColor}" />
-                            <Setter TargetName="BtnBorder" Property="BorderBrush" Value="{DynamicResource BorderColor}" />
+                            <Setter Property="FontWeight" Value="Bold" />
                             <Setter Property="Foreground" Value="{DynamicResource MainForegroundColor}" />
                             <Setter Property="Cursor" Value="Hand" />
-                        </Trigger>
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="BtnBorder" Property="Background" Value="{DynamicResource ButtonBackgroundPressedColor}" />
-                            <Setter Property="Foreground" Value="#FFFFFF" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -319,7 +312,7 @@
         </Style>
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="{DynamicResource LabelboxForegroundColor}"/>
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Background" Value="{DynamicResource LabelBackgroundColor}"/>
             <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>
         </Style>
 
@@ -327,7 +320,7 @@
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="{DynamicResource FontSize}"/>
             <Setter Property="Foreground" Value="{DynamicResource LabelboxForegroundColor}"/>
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Background" Value="{DynamicResource LabelBackgroundColor}"/>
         </Style>
         <!-- Toggle button template x:Key="TabToggleButton" -->
         <Style TargetType="{x:Type ToggleButton}">
@@ -376,17 +369,14 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <!-- Modern Solid Button Template -->
+        <!-- Button Template -->
         <Style TargetType="Button">
-            <Setter Property="Margin" Value="4"/>
+            <Setter Property="Margin" Value="{DynamicResource ButtonMargin}"/>
             <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundColor}"/>
             <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Height" Value="32"/>
+            <Setter Property="Height" Value="{DynamicResource ButtonHeight}"/>
             <Setter Property="Width" Value="{DynamicResource ButtonWidth}"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="{DynamicResource ButtonFontSize}"/>
             <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -395,25 +385,21 @@
                             <Border x:Name="BackgroundBorder"
                                     Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="6">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="16,4,16,4"/>
+                                    BorderThickness="{DynamicResource ButtonBorderThickness}"
+                                    CornerRadius="{DynamicResource ButtonCornerRadius}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,2,10,2"/>
                             </Border>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter TargetName="BackgroundBorder" Property="Background" Value="{DynamicResource ButtonBackgroundPressedColor}"/>
-                                <Setter Property="Foreground" Value="#FFFFFF"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="BackgroundBorder" Property="Background" Value="{DynamicResource ButtonBackgroundMouseoverColor}"/>
-                                <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="{DynamicResource ToggleButtonOnColor}"/>
-                                <Setter Property="Cursor" Value="Hand"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="BackgroundBorder" Property="Background" Value="{DynamicResource ButtonBackgroundSelectedColor}"/>
-                                <Setter Property="Foreground" Value="{DynamicResource ToggleButtonOffColor}"/>
-                                <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="DimGray"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -639,32 +625,27 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="CheckBox">
-                        <StackPanel Orientation="Horizontal">
-                            <Grid Cursor="Hand">
-                                <Border x:Name="SwitchTrack" Width="40"
+                        <StackPanel>
+                            <Grid>
+                                <Border Width="45"
                                         Height="20"
-                                        Background="{DynamicResource ToggleButtonOffColor}"
+                                        Background="#555555"
                                         CornerRadius="10"
-                                        Margin="0,0,12,0"
+                                        Margin="5,0"
                                 />
                                 <Border Name="WPFToggleSwitchButton"
-                                        Width="16"
-                                        Height="16"
-                                        Background="#FFFFFF"
-                                        CornerRadius="8"
+                                        Width="25"
+                                        Height="25"
+                                        Background="Black"
+                                        CornerRadius="12.5"
                                         HorizontalAlignment="Left"
-                                        Margin="2,0,0,0"
-                                >
-                                    <Border.Effect>
-                                        <DropShadowEffect ShadowDepth="1" BlurRadius="2" Opacity="0.3" Color="Black"/>
-                                    </Border.Effect>
-                                </Border>
+                                />
+                                <ContentPresenter Name="WPFToggleSwitchContent"
+                                                  Margin="10,0,0,0"
+                                                  Content="{TemplateBinding Content}"
+                                                  VerticalAlignment="Center"
+                                />
                             </Grid>
-                            <ContentPresenter Name="WPFToggleSwitchContent"
-                                              Content="{TemplateBinding Content}"
-                                              VerticalAlignment="Center"
-                                              RecognizesAccessKey="True"
-                            />
                         </StackPanel>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="false">
@@ -674,14 +655,17 @@
                                         <Storyboard>
                                             <ThicknessAnimation Storyboard.TargetProperty="Margin"
                                                     Storyboard.TargetName="WPFToggleSwitchButton"
-                                                    Duration="0:0:0:0.1"
-                                                    From="2,0,0,0"
-                                                    To="22,0,0,0">
+                                                    Duration="0:0:0:0"
+                                                    From="0,0,0,0"
+                                                    To="28,0,0,0">
                                             </ThicknessAnimation>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.ExitActions>
-                                <Setter TargetName="SwitchTrack" Property="Background" Value="{DynamicResource ToggleButtonOffColor}"/>
+                                <Setter TargetName="WPFToggleSwitchButton"
+                                        Property="Background"
+                                        Value="#fff9f4f4"
+                                />
                             </Trigger>
                             <Trigger Property="IsChecked" Value="true">
                                 <Trigger.ExitActions>
@@ -690,15 +674,17 @@
                                         <Storyboard>
                                             <ThicknessAnimation Storyboard.TargetProperty="Margin"
                                                     Storyboard.TargetName="WPFToggleSwitchButton"
-                                                    Duration="0:0:0:0.1"
-                                                    From="22,0,0,0"
-                                                    To="2,0,0,0">
+                                                    Duration="0:0:0:0"
+                                                    From="28,0,0,0"
+                                                    To="0,0,0,0">
                                             </ThicknessAnimation>
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.ExitActions>
-                                <Setter TargetName="WPFToggleSwitchButton" Property="Margin" Value="22,0,0,0"/>
-                                <Setter TargetName="SwitchTrack" Property="Background" Value="{DynamicResource ToggleButtonOnColor}"/>
+                                <Setter TargetName="WPFToggleSwitchButton"
+                                        Property="Background"
+                                        Value="#ff060600"
+                                />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -801,7 +787,7 @@
 
         <Style x:Key="labelfortweaks" TargetType="{x:Type Label}">
             <Setter Property="Foreground" Value="{DynamicResource MainForegroundColor}" />
-            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Background" Value="{DynamicResource MainBackgroundColor}" />
             <Setter Property="FontFamily" Value="{DynamicResource FontFamily}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -810,59 +796,13 @@
             </Style.Triggers>
         </Style>
 
-        <!-- Stark Dashboard Card Style -->
         <Style x:Key="BorderStyle" TargetType="Border">
-            <Setter Property="Background" Value="{DynamicResource CardBackgroundColor}"/>
+            <Setter Property="Background" Value="{DynamicResource MainBackgroundColor}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource BorderColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="6"/>
-            <Setter Property="Padding" Value="20"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="10"/>
             <Setter Property="Margin" Value="10"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect ShadowDepth="2" BlurRadius="6" Opacity="0.4" Color="Black"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Modern Command Center Sidebar Navigation Button Style -->
-        <Style x:Key="SidebarNavStyle" TargetType="ToggleButton">
-            <Setter Property="Height" Value="42"/>
-            <Setter Property="Margin" Value="0,2,0,2"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="{DynamicResource ToggleButtonOffColor}"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Grid>
-                            <Border x:Name="ActiveIndicator" Width="4" Height="42" CornerRadius="0,2,2,0"
-                                    HorizontalAlignment="Left" VerticalAlignment="Center"
-                                    Background="{DynamicResource ToggleButtonOnColor}" Visibility="Hidden">
-                                <Border.Effect>
-                                    <DropShadowEffect ShadowDepth="0" BlurRadius="8" Color="#00E5FF" Opacity="0.6"/>
-                                </Border.Effect>
-                            </Border>
-                            <Border x:Name="BgBorder" Background="Transparent" CornerRadius="0" Padding="0">
-                                <ContentPresenter x:Name="Content" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="12,0,8,0"/>
-                            </Border>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="BgBorder" Property="Background" Value="{DynamicResource ButtonBackgroundMouseoverColor}"/>
-                                <Setter Property="Foreground" Value="{DynamicResource MainForegroundColor}"/>
-                                <Setter Property="Cursor" Value="Hand"/>
-                            </Trigger>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="ActiveIndicator" Property="Visibility" Value="Visible"/>
-                                <Setter TargetName="BgBorder" Property="Background" Value="{DynamicResource ButtonBackgroundSelectedColor}"/>
-                                <Setter Property="Foreground" Value="{DynamicResource MainForegroundColor}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
         </Style>
 
         <Style TargetType="TextBox">
@@ -967,104 +907,134 @@
     </Window.Resources>
     <Grid Background="{DynamicResource MainBackgroundColor}" ShowGridLines="False" Name="WPFMainGrid" Width="Auto" Height="Auto" HorizontalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="230"/>
+            <!-- Sidebar Column -->
+            <ColumnDefinition Width="220"/>
+            <!-- Main Content Column -->
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- ═══ High Contrast Sidebar ═══ -->
-        <Border Grid.Column="0" Background="{DynamicResource SidebarBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0" CornerRadius="0">
-            <StackPanel Name="NavDockPanel" Orientation="Vertical" Margin="0,32,0,0">
-                <!-- Branding -->
-                <StackPanel Name="NavLogoPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,12">
-                    <TextBlock Foreground="{DynamicResource MainForegroundColor}" FontSize="28" FontWeight="Black" FontFamily="Segoe UI" Background="Transparent">
-                        SWIFTLY
+        <!-- Sidebar Navigation Panel -->
+        <Border Grid.Column="0" Background="#0A0A0A" BorderBrush="{DynamicResource BorderColor}" BorderThickness="0,0,1,0">
+            <StackPanel Name="NavDockPanel" Orientation="Vertical" Margin="0,20,0,0">
+                <!-- Branding area -->
+                <StackPanel Name="NavLogoPanel" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,30">
+                    <TextBlock Foreground="{DynamicResource LabelboxForegroundColor}" FontSize="24" FontWeight="Bold" FontFamily="Segoe UI">
+                        Swiftly<Run Foreground="{DynamicResource MainForegroundColor}" FontWeight="Normal" FontSize="18"> OS</Run>
                     </TextBlock>
                 </StackPanel>
-                <!-- Separator -->
-                <Border Height="1" Background="{DynamicResource BorderColor}" Margin="24,10,24,24" Opacity="1.0"/>
 
-                <!-- Nav: Install -->
-                <ToggleButton Name="WPFTab1BT" Style="{StaticResource SidebarNavStyle}" Foreground="{DynamicResource ButtonInstallForegroundColor}">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="190">
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8A9;" FontSize="16" Margin="10,0,14,0" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}" Background="Transparent"/>
-                        <TextBlock FontSize="13" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}" Background="Transparent" FontWeight="SemiBold">Install</TextBlock>
-                    </StackPanel>
+                <!-- Navigation Buttons (Vertical) -->
+                <ToggleButton Margin="10,5,10,5" Height="40" HorizontalAlignment="Stretch"
+                    Background="Transparent" Foreground="{DynamicResource ButtonInstallForegroundColor}" FontWeight="Bold" Name="WPFTab1BT" BorderThickness="0">
+                    <ToggleButton.Content>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="180">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE8A9;" FontSize="16" Margin="10,0,15,0" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}"/>
+                            <TextBlock FontSize="14" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}">
+                                Install
+                            </TextBlock>
+                        </StackPanel>
+                    </ToggleButton.Content>
                 </ToggleButton>
-                <!-- Nav: Tweaks -->
-                <ToggleButton Name="WPFTab2BT" Style="{StaticResource SidebarNavStyle}" Foreground="{DynamicResource ButtonTweaksForegroundColor}">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="190">
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE713;" FontSize="16" Margin="10,0,14,0" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}" Background="Transparent"/>
-                        <TextBlock FontSize="13" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}" Background="Transparent" FontWeight="SemiBold">Tweaks</TextBlock>
-                    </StackPanel>
+
+                <ToggleButton Margin="10,5,10,5" Height="40" HorizontalAlignment="Stretch"
+                    Background="Transparent" Foreground="{DynamicResource ButtonTweaksForegroundColor}" FontWeight="Bold" Name="WPFTab2BT" BorderThickness="0">
+                    <ToggleButton.Content>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="180">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE713;" FontSize="16" Margin="10,0,15,0" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}"/>
+                            <TextBlock FontSize="14" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}">
+                                Tweaks
+                            </TextBlock>
+                        </StackPanel>
+                    </ToggleButton.Content>
                 </ToggleButton>
-                <!-- Nav: Config -->
-                <ToggleButton Name="WPFTab3BT" Style="{StaticResource SidebarNavStyle}" Foreground="{DynamicResource ButtonConfigForegroundColor}">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="190">
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE115;" FontSize="16" Margin="10,0,14,0" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}" Background="Transparent"/>
-                        <TextBlock FontSize="13" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}" Background="Transparent" FontWeight="SemiBold">Config</TextBlock>
-                    </StackPanel>
+
+                <ToggleButton Margin="10,5,10,5" Height="40" HorizontalAlignment="Stretch"
+                    Background="Transparent" Foreground="{DynamicResource ButtonConfigForegroundColor}" FontWeight="Bold" Name="WPFTab3BT" BorderThickness="0">
+                    <ToggleButton.Content>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="180">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE713;" FontSize="16" Margin="10,0,15,0" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}"/>
+                            <TextBlock FontSize="14" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}">
+                                Config
+                            </TextBlock>
+                        </StackPanel>
+                    </ToggleButton.Content>
                 </ToggleButton>
-                <!-- Nav: Updates -->
-                <ToggleButton Name="WPFTab4BT" Style="{StaticResource SidebarNavStyle}" Foreground="{DynamicResource ButtonUpdatesForegroundColor}">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="190">
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE895;" FontSize="16" Margin="10,0,14,0" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}" Background="Transparent"/>
-                        <TextBlock FontSize="13" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}" Background="Transparent" FontWeight="SemiBold">Updates</TextBlock>
-                    </StackPanel>
+
+                <ToggleButton Margin="10,5,10,5" Height="40" HorizontalAlignment="Stretch"
+                    Background="Transparent" Foreground="{DynamicResource ButtonUpdatesForegroundColor}" FontWeight="Bold" Name="WPFTab4BT" BorderThickness="0">
+                    <ToggleButton.Content>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="180">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xE895;" FontSize="16" Margin="10,0,15,0" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}"/>
+                            <TextBlock FontSize="14" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}">
+                                Updates
+                            </TextBlock>
+                        </StackPanel>
+                    </ToggleButton.Content>
                 </ToggleButton>
-                <!-- Nav: Win11 Creator (hidden) -->
-                <ToggleButton Name="WPFTab5BT" Style="{StaticResource SidebarNavStyle}" Foreground="{DynamicResource ButtonWin11ISOForegroundColor}" Visibility="Collapsed">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="190">
-                        <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xECDD;" FontSize="16" Margin="10,0,14,0" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}" Background="Transparent"/>
-                        <TextBlock FontSize="13" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}" Background="Transparent" FontWeight="SemiBold">Win11 Creator</TextBlock>
-                    </StackPanel>
+
+                <ToggleButton Margin="10,5,10,5" Height="40" HorizontalAlignment="Stretch"
+                    Background="Transparent" Foreground="{DynamicResource ButtonWin11ISOForegroundColor}" FontWeight="Bold" Name="WPFTab5BT" BorderThickness="0" Visibility="Collapsed">
+                    <ToggleButton.Content>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Width="180">
+                            <TextBlock FontFamily="Segoe MDL2 Assets" Text="&#xECDD;" FontSize="16" Margin="10,0,15,0" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}"/>
+                            <TextBlock FontSize="14" VerticalAlignment="Center" Foreground="{DynamicResource MainForegroundColor}">
+                                Win11 Creator
+                            </TextBlock>
+                        </StackPanel>
+                    </ToggleButton.Content>
                 </ToggleButton>
             </StackPanel>
         </Border>
 
         <!-- Main Content Area -->
-        <Grid Grid.Column="1" Name="GridBesideNavDockPanel" Background="{DynamicResource MainBackgroundColor}">
+        <Grid Grid.Column="1" Background="{DynamicResource MainBackgroundColor}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/> <!-- Top Bar (Search + Window Controls) -->
                 <RowDefinition Height="*"/>    <!-- Tab Content -->
             </Grid.RowDefinitions>
 
             <!-- Top Bar (Search + Window Controls) -->
-            <!-- ═══ Top Bar ═══ -->
-            <Grid Grid.Row="0" Margin="24,16,24,16" Height="48">
+            <Grid Grid.Row="0" Margin="10,10,10,10" Height="40">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="2*"/> <!-- Search bar area - priority space -->
+                    <ColumnDefinition Width="Auto"/><!-- Buttons area -->
                 </Grid.ColumnDefinitions>
 
-                <!-- Command-Prompt Search Bar -->
-                <Border Name="SearchBarContainer" Grid.Column="0" Margin="0" Width="400" Height="44"
-                        VerticalAlignment="Center" HorizontalAlignment="Left"
-                        Background="{DynamicResource SearchBarBackgroundColor}"
-                        CornerRadius="8" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1">
+                <Border Grid.Column="0" Margin="5,0,0,0" Width="{DynamicResource SearchBarWidth}" Height="{DynamicResource SearchBarHeight}" VerticalAlignment="Center" HorizontalAlignment="Left">
                     <Grid>
-                        <TextBox Width="400" Height="44"
-                            FontSize="14"
+                        <TextBox
+                            Width="{DynamicResource SearchBarWidth}"
+                            Height="{DynamicResource SearchBarHeight}"
+                            FontSize="{DynamicResource SearchBarTextBoxFontSize}"
                             VerticalAlignment="Center" HorizontalAlignment="Left"
-                            BorderThickness="0" Name="SearchBar"
-                            Foreground="{DynamicResource MainForegroundColor}" Background="Transparent"
-                            Padding="38,0,34,0"
-                            ToolTip="Press Ctrl-F to search. Press Esc to reset"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left"
-                            FontFamily="Segoe MDL2 Assets" Foreground="{DynamicResource ToggleButtonOffColor}"
-                            FontSize="16" Margin="14,0,0,0"
-                            Background="Transparent">&#xE721;</TextBlock>
+                            BorderThickness="1"
+                            Name="SearchBar"
+                            Foreground="{DynamicResource MainForegroundColor}" Background="{DynamicResource MainBackgroundColor}"
+                            Padding="3,3,30,0"
+                            ToolTip="Press Ctrl-F and type app name to filter application list below. Press Esc to reset the filter">
+                        </TextBox>
+                        <TextBlock
+                            VerticalAlignment="Center" HorizontalAlignment="Right"
+                            FontFamily="Segoe MDL2 Assets"
+                            Foreground="{DynamicResource ButtonBackgroundSelectedColor}"
+                            FontSize="{DynamicResource IconFontSize}"
+                            Margin="0,0,8,0" Width="Auto" Height="Auto">&#xE721;
+                        </TextBlock>
                     </Grid>
                 </Border>
-                <Button Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left"
-                    Name="SearchBarClearButton" Style="{StaticResource SearchBarClearButtonStyle}"
-                    Margin="260,0,0,0" Visibility="Collapsed"/>
+                <Button Grid.Column="0"
+                    VerticalAlignment="Center" HorizontalAlignment="Left"
+                    Name="SearchBarClearButton"
+                    Style="{StaticResource SearchBarClearButtonStyle}"
+                    Margin="213,0,0,0" Visibility="Collapsed">
+                </Button>
 
                 <!-- Buttons Container -->
                 <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5,5,5,5">
                     <Button Name="ThemeButton"
                         Style="{StaticResource HoverButtonStyle}"
                         BorderBrush="Transparent"
-                    Background="Transparent"
+                    Background="{DynamicResource MainBackgroundColor}"
                     Foreground="{DynamicResource MainForegroundColor}"
                     FontSize="{DynamicResource SettingsIconFontSize}"
                     Width="{DynamicResource IconButtonSize}" Height="{DynamicResource IconButtonSize}"
@@ -1078,8 +1048,8 @@
                     IsOpen="False"
                     PlacementTarget="{Binding ElementName=ThemeButton}" Placement="Bottom"
                     HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <Border Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="8" Margin="0,4,0,0">
-                        <StackPanel Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Border Background="{DynamicResource MainBackgroundColor}" BorderBrush="{DynamicResource MainForegroundColor}" BorderThickness="1" CornerRadius="0" Margin="0">
+                        <StackPanel Background="{DynamicResource MainBackgroundColor}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <MenuItem FontSize="{DynamicResource ButtonFontSize}" Header="Auto" Name="AutoThemeMenuItem" Foreground="{DynamicResource MainForegroundColor}">
                                 <MenuItem.ToolTip>
                                     <ToolTip Content="Follow the Windows Theme"/>
@@ -1102,7 +1072,7 @@
                     <Button Name="FontScalingButton"
                         Style="{StaticResource HoverButtonStyle}"
                         BorderBrush="Transparent"
-                    Background="Transparent"
+                    Background="{DynamicResource MainBackgroundColor}"
                     Foreground="{DynamicResource MainForegroundColor}"
                     FontSize="{DynamicResource SettingsIconFontSize}"
                     Width="{DynamicResource IconButtonSize}" Height="{DynamicResource IconButtonSize}"
@@ -1116,8 +1086,8 @@
                     IsOpen="False"
                     PlacementTarget="{Binding ElementName=FontScalingButton}" Placement="Bottom"
                     HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <Border Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="8" Margin="0,4,0,0">
-                        <StackPanel Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="200">
+                    <Border Background="{DynamicResource MainBackgroundColor}" BorderBrush="{DynamicResource MainForegroundColor}" BorderThickness="1" CornerRadius="0" Margin="0">
+                        <StackPanel Background="{DynamicResource MainBackgroundColor}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="200">
                             <TextBlock Text="Font Scaling"
                                        FontSize="{DynamicResource ButtonFontSize}"
                                        Foreground="{DynamicResource MainForegroundColor}"
@@ -1170,7 +1140,7 @@
                     <Button Name="SettingsButton"
                         Style="{StaticResource HoverButtonStyle}"
                         BorderBrush="Transparent"
-                    Background="Transparent"
+                    Background="{DynamicResource MainBackgroundColor}"
                     Foreground="{DynamicResource MainForegroundColor}"
                     FontSize="{DynamicResource SettingsIconFontSize}"
                     Width="{DynamicResource IconButtonSize}" Height="{DynamicResource IconButtonSize}"
@@ -1182,8 +1152,8 @@
                     IsOpen="False"
                     PlacementTarget="{Binding ElementName=SettingsButton}" Placement="Bottom"
                     HorizontalAlignment="Right" VerticalAlignment="Top">
-                    <Border Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="8" Margin="0,4,0,0">
-                        <StackPanel Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Border Background="{DynamicResource MainBackgroundColor}" BorderBrush="{DynamicResource MainForegroundColor}" BorderThickness="1" CornerRadius="0" Margin="0">
+                        <StackPanel Background="{DynamicResource MainBackgroundColor}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <MenuItem FontSize="{DynamicResource ButtonFontSize}" Header="Import" Name="ImportMenuItem" Foreground="{DynamicResource MainForegroundColor}">
                                 <MenuItem.ToolTip>
                                     <ToolTip Content="Import Configuration from exported file."/>
@@ -1204,7 +1174,7 @@
                     <Button
                     Content="&#xD7;" BorderThickness="0"
                 BorderBrush="Transparent"
-                Background="Transparent"
+                Background="{DynamicResource MainBackgroundColor}"
                 Width="{DynamicResource IconButtonSize}" Height="{DynamicResource IconButtonSize}"
                 HorizontalAlignment="Right" VerticalAlignment="Top"
                 Margin="0,0,0,0"
@@ -1248,7 +1218,7 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <StackPanel Background="Transparent" Orientation="Vertical" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
+                            <StackPanel Background="{DynamicResource MainBackgroundColor}" Orientation="Vertical" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5">
                                 <Label Content="Recommended Selections:" FontSize="{DynamicResource FontSize}" VerticalAlignment="Center" Margin="2"/>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,2,0,0">
                                     <Button Name="WPFstandard" Content=" Standard " Margin="2" Width="{DynamicResource ButtonWidth}" Height="{DynamicResource ButtonHeight}"/>
@@ -1263,7 +1233,7 @@
                             </Grid>
 
                             <Border Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="0" Style="{StaticResource BorderStyle}">
-                                <StackPanel Background="Transparent" Orientation="Horizontal" HorizontalAlignment="Left">
+                                <StackPanel Background="{DynamicResource MainBackgroundColor}" Orientation="Horizontal" HorizontalAlignment="Left">
                                     <TextBlock Padding="10">
                                         Note: Hover over items to get a better description. Please be careful as many of these tweaks will heavily modify your system.
                                         <LineBreak/>Recommended selections are for normal users and if you are unsure do NOT check anything else!
@@ -1272,7 +1242,7 @@
                             </Border>
                         </Grid>
                     </ScrollViewer>
-                    <Border Grid.Row="1" Background="{DynamicResource CardBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="10" HorizontalAlignment="Stretch" Padding="10" Margin="5">
+                    <Border Grid.Row="1" Background="{DynamicResource MainBackgroundColor}" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="5" HorizontalAlignment="Stretch" Padding="10">
                         <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="0">
                             <Button Name="WPFTweaksbutton" Content="Run Tweaks" Margin="5" Width="{DynamicResource ButtonWidth}" Height="{DynamicResource ButtonHeight}"/>
                             <Button Name="WPFUndoall" Content="Undo Selected Tweaks" Margin="5" Width="{DynamicResource ButtonWidth}" Height="{DynamicResource ButtonHeight}"/>

@@ -10,4 +10,4 @@
 #>
 
 $latestTag = (Invoke-RestMethod "https://api.github.com/repos/945040ad/winutil/tags")[0].name
-Invoke-RestMethod "https://github.com/945040ad/winutil/releases/download/$latestTag/winutil.ps1" | Invoke-Expression
+Invoke-RestMethod "https://github.com/945040ad/swiftly/releases/download/$latestTag/winutil.ps1" | Invoke-Expression

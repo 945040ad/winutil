@@ -1,0 +1,14 @@
+<Page x:Class="SwiftlyApp.Views.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      Title="Settings"
+      HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+    <Grid Margin="16" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <StackPanel>
+            <TextBlock Text="Settings" FontSize="24" FontWeight="SemiBold" Margin="0,0,0,16"/>
+            <ui:TextBlock Text="Application settings will go here." Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
+        </StackPanel>
+    </Grid>
+</Page>
