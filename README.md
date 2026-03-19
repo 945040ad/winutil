@@ -49,6 +49,22 @@ Swiftly is a native C# WPF application designed for maximum performance and a pr
 
 You can also open `SwiftlyApp.csproj` in Visual Studio 2022 or JetBrains Rider to develop, run, and debug the application seamlessly.
 
+### Web Landing Page
+The repository also includes the modern landing page for Swiftly.
+To run it locally:
+1. Navigate to the landing page directory:
+```bash
+cd LandingPage/swiftly-landing
+```
+2. Install dependencies:
+```bash
+npm install
+```
+3. Start the development server:
+```bash
+npm run dev
+```
+
 ---
 
 ## ⚖️ Credits & License

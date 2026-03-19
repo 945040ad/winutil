@@ -1,0 +1,349 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7rem 0 4rem;
+  overflow: hidden;
+}
+
+/* ─── Hero Content ─── */
+.hero-container {
+  position: relative;
+  z-index: 10;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Entry Animations */
+.hero-content > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+}
+
+.hero-content--loaded > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+.hero-content--loaded > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+.hero-content--loaded > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
+
+/* ─── Badge (above rings) ─── */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(0, 229, 198, 0.06);
+  border: 1px solid rgba(0, 229, 198, 0.15);
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent-primary);
+  letter-spacing: 0.02em;
+  z-index: 20;
+}
+
+.hero-badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  box-shadow: 0 0 12px var(--accent-glow);
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════
+   ATOMIC RING WRAPPER
+   Contains the orbital rings + content inside
+   ═══════════════════════════════════════════ */
+.atomic-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 3rem 0;
+}
+
+/* ─── Concentric Bohr Model ─── */
+.atomic-rings--bohr {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 820px;
+  height: 820px;
+  pointer-events: none;
+}
+
+/* Invisible Nucleus */
+.bohr-nucleus {
+  display: none;
+}
+
+/* Rings */
+.bohr-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: bohrSpin linear infinite;
+}
+
+/* Scaled Down Shell Dimensions */
+.bohr-ring--1 { width: 220px; height: 220px; }
+.bohr-ring--2 { width: 340px; height: 340px; }
+.bohr-ring--3 { width: 460px; height: 460px; }
+.bohr-ring--4 { width: 580px; height: 580px; }
+.bohr-ring--5 { width: 700px; height: 700px; }
+.bohr-ring--6 { width: 820px; height: 820px; }
+
+.bohr-path {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Thin, grey, subtle rings */
+}
+
+/* Electrons */
+.electron-carrier {
+  position: absolute;
+  inset: 0;
+}
+
+.electron {
+  position: absolute;
+  top: -3px; /* Center perfectly on the 1px line (6px / 2 = 3) */
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  /* Colors and glow are passed from inline styles */
+}
+
+@keyframes bohrSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Core glow at center */
+.atomic-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 229, 198, 0.12) 0%,
+    rgba(74, 227, 245, 0.06) 40%,
+    transparent 70%
+  );
+  filter: blur(30px);
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+/* ─── Particles ─── */
+.cosmic-particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: var(--accent-primary);
+  opacity: 0;
+  transform: rotate(var(--angle)) translateY(calc(-1 * var(--distance)));
+  animation: particleBlink var(--duration) ease-in-out var(--delay) infinite;
+}
+
+@keyframes particleBlink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.7; }
+}
+
+/* ─── Content inside rings ─── */
+.atomic-content {
+  position: relative;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+/* Title — decreased size */
+.hero-title {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+/* Subtitle */
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 520px;
+  line-height: 1.7;
+}
+
+/* Actions */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ─── Terminal (below rings) ─── */
+.hero-terminal {
+  width: 100%;
+  max-width: 680px;
+  background: rgba(10, 10, 15, 0.7);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  padding: 0.85rem 1.25rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.terminal-dots {
+  display: flex;
+  gap: 7px;
+  margin-right: 1rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.dot--red { background: #FF5F56; }
+.dot--yellow { background: #FFBD2E; }
+.dot--green { background: #27C93F; }
+
+.terminal-title {
+  font-family: 'Inter', monospace;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  flex-grow: 1;
+  text-align: center;
+  margin-right: 2.5rem;
+}
+
+.terminal-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  gap: 1rem;
+}
+
+.terminal-prompt {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  overflow: hidden;
+}
+
+.terminal-prompt__symbol {
+  color: var(--accent-primary);
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.terminal-prompt code {
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 0.85rem;
+  color: rgba(74, 227, 245, 0.85);
+  background: transparent;
+  text-align: left;
+  word-break: break-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.terminal-copy {
+  padding: 0.45rem 1rem;
+  font-size: 0.8rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .hero {
+    padding: 6rem 0 3rem;
+  }
+
+  .atomic-rings {
+    width: 400px;
+    height: 400px;
+  }
+
+  .orbital--1 { width: 400px; height: 400px; }
+  .orbital--2 { width: 380px; height: 380px; }
+  .orbital--3 { width: 360px; height: 360px; }
+
+  .hero-title {
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .terminal-body {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .terminal-copy {
+    align-self: flex-end;
+  }
+
+  @keyframes electronOrbit1 {
+    0%   { transform: translate(calc(-50% + 200px), -50%); }
+    25%  { transform: translate(-50%, calc(-50% - 52px)); }
+    50%  { transform: translate(calc(-50% - 200px), -50%); }
+    75%  { transform: translate(-50%, calc(-50% + 52px)); }
+    100% { transform: translate(calc(-50% + 200px), -50%); }
+  }
+}

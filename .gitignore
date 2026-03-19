@@ -62,3 +62,8 @@ binary/
 docs/public/
 docs/.hugo_build.lock
 docs/resources/
+
+# Web dependencies
+node_modules/
+dist/
+.env
